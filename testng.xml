@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <parameter name="browserType" value="chrome"> </parameter>
+    <parameter name="webURL" value="https://opensource-demo.orangehrmlive.com/"> </parameter>
+    <test name="HRMRunTest">
+        <classes>
+            <class name="hongpn.testcases.SiginTest"/>
+        </classes>
+    </test>
+
+
+</suite>

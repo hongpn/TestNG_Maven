@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2023-07-12T14:32:43 ICT" name="Default Suite" finished-at="2023-07-12T14:33:11 ICT" duration-ms="28204">
+    <groups>
+    </groups>
+    <test started-at="2023-07-12T14:32:43 ICT" name="TestNG_Maven" finished-at="2023-07-12T14:33:11 ICT" duration-ms="28204">
+      <class name="hongpn.testcases.SiginTest">
+        <test-method signature="ABC()[pri:0, instance:hongpn.testcases.SiginTest@3b07a0d6]" started-at="2023-07-12T14:32:43 ICT" name="ABC" finished-at="2023-07-12T14:33:11 ICT" duration-ms="28163" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ABC -->
+      </class> <!-- hongpn.testcases.SiginTest -->
+    </test> <!-- TestNG_Maven -->
+  </suite> <!-- Default Suite -->
+</testng-results>
