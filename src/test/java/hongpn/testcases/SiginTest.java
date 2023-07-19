@@ -7,7 +7,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -20,7 +19,8 @@ public class SiginTest extends BaseSetup {
 
     private SignInPage signInPage;
     @BeforeClass
-    public void setUpBrowser() throws Exception {this.driver = getDriver();}
+    public void setUpBrowser()  {
+        this.driver = getDriver();}
     private By searchField=By.xpath("//textarea[@id='APjFqb']");
     private By searchButton=By.xpath("(//input[@name='btnK'])[2]");
     @Test
@@ -47,8 +47,5 @@ public class SiginTest extends BaseSetup {
         Thread.sleep(5000);
 
     }
-    @AfterClass
-    public void tearDownBrowser() {
-        driver.quit();
-    }
+
 }
