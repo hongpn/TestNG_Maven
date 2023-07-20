@@ -17,9 +17,10 @@ public class BaseSetup {
 
     private WebDriver driver;
     public WebDriver getDriver() { return driver;}
-@Parameters({"chrome", "https://opensource-demo.orangehrmlive.com/"})
-    @BeforeClass
-    private void setDriver(String browserType,String appURL) {
+    @BeforeClass(alwaysRun = true)
+    @Parameters({"browserType", "appURL"})
+    public void setDriver(String browserType,String appURL) {
+        System.out.println("Đã vào set driver");
         switch (browserType) {
             case "firefox" -> initFirefoxDriver(appURL);
             case "ie" -> initIEDriver(appURL);
@@ -27,6 +28,7 @@ public class BaseSetup {
             default -> initChromeDriver(appURL);
         }
     }
+
     private  void initChromeDriver(String appURL) {
         System.out.println("Launching Chrome browser...");
         driver = new ChromeDriver();

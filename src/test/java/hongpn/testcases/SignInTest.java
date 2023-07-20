@@ -10,15 +10,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static java.sql.DriverManager.getDriver;
 
-
-public class SiginTest extends BaseSetup {
+public class SignInTest extends BaseSetup {
     private WebDriver driver;
     private ValidateHelper validateHelper;
 
     private SignInPage signInPage;
-    @BeforeClass
+
     public void setUpBrowser()  {
         this.driver = getDriver();}
     private By searchField=By.xpath("//textarea[@id='APjFqb']");
@@ -37,15 +35,16 @@ public class SiginTest extends BaseSetup {
     }
 
     @Test
-    public void SignInHRMPager() throws InterruptedException {
+    public void SignInHRMPage() throws InterruptedException {
 //        WebDriverManager.chromedriver().setup();
 //        driver = new ChromeDriver();
 //        driver.manage().window().maximize();
 //        driver.get("https://opensource-demo.orangehrmlive.com/");
-        signInPage=new SignInPage(this.driver);
-        signInPage.SignIn("Admin","admin123");
+        driver = super.getDriver();
+        signInPage = new SignInPage(this.driver);
+        signInPage.SignIn("Admin", "admin123");
         Thread.sleep(5000);
-
     }
+
 
 }
