@@ -3,6 +3,7 @@ package hongpn.pages;
 import hongpn.commons.ValidateHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 public class SignInPage {
     WebDriver driver;
@@ -17,6 +18,8 @@ public class SignInPage {
 
     public DashboardPage SignIn(String usernameValue, String passwordValue)
     {
+        // verify whether we're in login page or not
+        Assert.assertTrue(helper.verifyTxtElement(LoginBtn, "Login"),"Access wrong login page!");
         helper.setText(UsernameInput,usernameValue);
         helper.setText(PasswordInput,passwordValue);
         helper.click(this.LoginBtn);
