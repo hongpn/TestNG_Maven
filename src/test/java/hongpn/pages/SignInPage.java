@@ -19,6 +19,7 @@ public class SignInPage {
     public DashboardPage SignIn(String usernameValue, String passwordValue)
     {
         // verify whether we're in login page or not
+        helper.waitForJQueryLoaded();
         Assert.assertTrue(helper.verifyTxtElement(LoginBtn, "Login"),"Access wrong login page!");
         helper.setText(UsernameInput,usernameValue);
         helper.setText(PasswordInput,passwordValue);
