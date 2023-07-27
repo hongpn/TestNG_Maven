@@ -7,10 +7,8 @@
 
     <test name="sample test">
         <classes>
-            <class name="hongpn.testcases.SignInTest">
-                <methods>
-                    <include name="SignInHRMPage" />
-                </methods>
+            <class name="hongpn.testcases.EmployeeTest">
+
             </class>
         </classes>
     </test>

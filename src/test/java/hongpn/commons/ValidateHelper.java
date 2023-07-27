@@ -36,9 +36,9 @@ public class ValidateHelper {
     //click on a locator
     public void click(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
-        // driver.findElement(locator).click();
+        driver.findElement(locator).click();
         //Click JS
-        js.executeScript("arguments[0].click();", driver.findElement(locator));
+        //js.executeScript("arguments[0].click();", driver.findElement(locator));
     }
 
     //choose text on dropdownlist

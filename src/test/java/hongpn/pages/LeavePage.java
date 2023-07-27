@@ -3,9 +3,8 @@ package hongpn.pages;
 import hongpn.commons.ValidateHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 
-public class DashboardPage {
+public class LeavePage {
     private WebDriver driver;
     private ValidateHelper helper;
     // Element for Dashboard Page
@@ -27,41 +26,8 @@ public class DashboardPage {
     private  final String urlDashboard="/dashboard";
     //Header Page
     private final By headerPage=By.xpath("//h6[normalize-space()='Dashboard']");
-    public DashboardPage(WebDriver driver) {
+    public LeavePage(WebDriver driver) {
         this.driver = driver;
         helper = new ValidateHelper(driver);
-    }
-
-    public AdminPage openAdminMenu()
-    {
-        helper.waitForJSLoaded();
-        Assert.assertTrue(helper.verifyUrl(urlDashboard),"Wrong link Dashboard Page");
-        Assert.assertTrue(helper.verifyTxtElement(headerPage,"Dashboard"),"Wrong header Dashboard Page");
-        helper.click(adminMenu);
-        return new AdminPage(driver);
-    }
-    public PIMPage openPimMenu()
-    {
-        helper.waitForJSLoaded();
-        Assert.assertTrue(helper.verifyUrl(urlDashboard),"Wrong link Dashboard Page");
-        Assert.assertTrue(helper.verifyTxtElement(headerPage,"Dashboard"),"Wrong header Dashboard Page");
-        helper.click(pimMenu);
-        return new PIMPage(driver);
-    }
-    public LeavePage openLeaveMenu()
-    {
-        helper.waitForJSLoaded();
-        Assert.assertTrue(helper.verifyUrl(urlDashboard),"Wrong link Dashboard Page");
-        Assert.assertTrue(helper.verifyTxtElement(headerPage,"Dashboard"),"Wrong header Dashboard Page");
-        helper.click(leaveMenu);
-        return new LeavePage(driver);
-    }
-
-
-    public void openABCPage() {
-        helper.waitForJSLoaded();
-        // Validate URL
-        // Validate Content
-        //Click to open
     }
 }
