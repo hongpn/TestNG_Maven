@@ -35,6 +35,7 @@ public class EmployeeTest extends BaseSetup {
         pimPage.ClickToElementStatus();
         pimPage.ClickToSubUnit();
         pimPage.ClickToInclude();
+        pimPage.ClickSearch();
     }
 
 }

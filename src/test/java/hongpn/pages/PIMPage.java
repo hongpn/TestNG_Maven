@@ -39,6 +39,8 @@ public class PIMPage {
     private final By financeValue=By.xpath("//div[@role='listbox']//div[@role='option' and normalize-space()='Finance']");
     private final By currentPastValue=By.xpath("//div[@role='listbox']//div[@role='option' and normalize-space()='Current and Past Employees']");
 
+    private  final By searchBtn=By.xpath("//button[normalize-space()='Search']");
+    private  final By resetBtn=By.xpath("//button[normalize-space()='Reset']");
     //url Dashboard
     private  final String urlDashboard="/dashboard";
     //Header Page
@@ -98,7 +100,7 @@ public class PIMPage {
     }
     public void ClickToSubUnit() throws InterruptedException {
         helper.waitForJQueryLoaded();
-        helper.click(empStatusDrop);
+        helper.click(subUnitDrop);
         Thread.sleep(2000);
         actions=new Actions(driver);
         //actions.sendKeys(Keys.ARROW_DOWN).build().perform();
@@ -121,7 +123,7 @@ public class PIMPage {
     }
     public void ClickToInclude() throws InterruptedException {
         helper.waitForJQueryLoaded();
-        helper.click(empStatusDrop);
+        helper.click(includeDrop);
         Thread.sleep(2000);
         actions=new Actions(driver);
         //actions.sendKeys(Keys.ARROW_DOWN).build().perform();
@@ -141,5 +143,9 @@ public class PIMPage {
         }
         else
             System.out.println("Can not get list item in Include");
+    }
+    public  void ClickSearch()
+    {
+        helper.click(searchBtn);
     }
 }
