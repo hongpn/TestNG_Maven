@@ -121,6 +121,12 @@ public class ValidatingUIHelpers {
             return true;
         }
     }
+    // scroll to
+    public void scrollToElement(By by)
+    {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(by));
+    }
     public void waitForJQueryLoaded() {
         ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
             @Override

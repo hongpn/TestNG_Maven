@@ -1,5 +1,6 @@
 package hongpn.testcases;
 
+import hongpn.common.helpers.ExcelHelpers;
 import hongpn.commons.BaseSetup;
 import hongpn.commons.ValidateHelper;
 import  hongpn.pages.SignInPage;
@@ -16,12 +17,15 @@ public class SignInTest extends BaseSetup {
     private ValidateHelper validateHelper;
 
     private SignInPage signInPage;
-
+    private ExcelHelpers excelHelpers;
+    @BeforeClass
     public void setUpBrowser()  {
-        this.driver = getDriver();}
+        this.driver = getDriver();
+        excelHelpers=new ExcelHelpers();
+    }
     private By searchField=By.xpath("//textarea[@id='APjFqb']");
     private By searchButton=By.xpath("(//input[@name='btnK'])[2]");
-    @Test
+
     public void SearchOnGG() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -34,15 +38,20 @@ public class SignInTest extends BaseSetup {
         driver.quit();
     }
 
-    @Test
-    public void SignInHRMPage() throws InterruptedException {
+    @Test(priority = 0)
+    public void SignInHRMPage() throws Exception {
 //        WebDriverManager.chromedriver().setup();
 //        driver = new ChromeDriver();
 //        driver.manage().window().maximize();
 //        driver.get("https://opensource-demo.orangehrmlive.com/");
         driver = super.getDriver();
         signInPage = new SignInPage(this.driver);
-        signInPage.SignIn("Admin", "admin123");
+        excelHelpers.setExcelFile("src/test/resources/Book1.xlsx","Sheet1");
+        String username=excelHelpers.getCellData("username",1);
+        System.out.println("Username: "+username);
+        String password=excelHelpers.getCellData("password",1);
+        System.out.println("Password: "+password);
+        signInPage.SignIn(username, password);
         Thread.sleep(5000);
     }
 
