@@ -1,10 +1,8 @@
 package hongpn.pages;
-
 import hongpn.commons.ValidateHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-
 public class SignInPage {
     WebDriver driver;
     ValidateHelper helper;

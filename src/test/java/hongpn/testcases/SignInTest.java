@@ -1,6 +1,7 @@
 package hongpn.testcases;
 
 import hongpn.common.helpers.ExcelHelpers;
+import hongpn.common.helpers.PropertiesFile;
 import hongpn.commons.BaseSetup;
 import hongpn.commons.ValidateHelper;
 import  hongpn.pages.SignInPage;
@@ -22,6 +23,11 @@ public class SignInTest extends BaseSetup {
     public void setUpBrowser()  {
         this.driver = getDriver();
         excelHelpers=new ExcelHelpers();
+        PropertiesFile.setPropertiesFile();
+//        PropertiesFile.getPropValue("browser");
+//        System.out.println(PropertiesFile.getPropValue("browser"));
+//        System.out.println(PropertiesFile.getPropValue("username"));
+//        System.out.println(PropertiesFile.getPropValue("password"));
     }
     private By searchField=By.xpath("//textarea[@id='APjFqb']");
     private By searchButton=By.xpath("(//input[@name='btnK'])[2]");
@@ -52,6 +58,8 @@ public class SignInTest extends BaseSetup {
         String password=excelHelpers.getCellData("password",1);
         System.out.println("Password: "+password);
         signInPage.SignIn(username, password);
+        excelHelpers.setCellData("Passed",1,2);
+        PropertiesFile.setPropValue("result","passed");
         Thread.sleep(5000);
     }
 
