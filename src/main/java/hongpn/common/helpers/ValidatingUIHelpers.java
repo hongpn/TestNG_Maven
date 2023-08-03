@@ -20,7 +20,7 @@ public class ValidatingUIHelpers {
     private final int timeoutWait=10;
     private final int timeoutWaiForPageLoaded = 20;
     private JavascriptExecutor js;
-    private  ValidatingUIHelpers(WebDriver driver)
+    public   ValidatingUIHelpers(WebDriver driver)
     {
         this.driver=driver;
         wait= new WebDriverWait(driver,Duration.ofSeconds(timeoutWait));

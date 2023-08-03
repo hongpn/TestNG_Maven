@@ -1,7 +1,9 @@
 package hongpn.testcases;
 
+import hongpn.common.helpers.CaptureHelpers;
 import hongpn.common.helpers.ExcelHelpers;
 import hongpn.common.helpers.PropertiesFile;
+import hongpn.common.helpers.ValidatingUIHelpers;
 import hongpn.commons.BaseSetup;
 import hongpn.commons.ValidateHelper;
 import hongpn.pages.SignInPage;
@@ -10,6 +12,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,11 +25,14 @@ public class ManyTests extends BaseSetup {
     private ValidateHelper validateHelper;
     private SignInPage signInPage;
     private ExcelHelpers excelHelpers;
+    private ValidatingUIHelpers helpers;
     @BeforeClass
-    public void setUpBrowser()  {
+    public void setUpBrowser() throws Exception {
         this.driver = getDriver();
         excelHelpers=new ExcelHelpers();
         PropertiesFile.setPropertiesFile();
+        helpers=new ValidatingUIHelpers(driver);
+        CaptureHelpers.startRecord("LoginHRM");
     }
     @Test(priority = 0)
     public void SignInHRMPage() throws Exception {
@@ -45,25 +51,18 @@ public class ManyTests extends BaseSetup {
         Thread.sleep(2000);
     }
     @AfterMethod
-    public void CaptureScreen(ITestResult result)
-    {
-      //  if (ITestResult.FAILURE == result.getStatus()) {
-            try {
-                // Tạo tham chiếu của TakesScreenshot
-                TakesScreenshot ts = (TakesScreenshot) driver;
-                // Gọi hàm capture screenshot - getScreenshotAs
-                File source = ts.getScreenshotAs(OutputType.FILE);
-                //Kiểm tra folder tồn tại. Nêu không thì tạo mới folder
-                File theDir = new File("./Screenshots/");
-                if (!theDir.exists()) {
-                    theDir.mkdirs();
-                }
-                // result.getName() lấy tên của test case xong gán cho tên File chụp màn hình
-                FileHandler.copy(source, new File("./Screenshots/" + result.getName() + ".png"));
-                System.out.println("Đã chụp màn hình: " + result.getName());
-            } catch (Exception e) {
-                System.out.println("Exception while taking screenshot " + e.getMessage());
-            }
+    public void CaptureScreen(ITestResult result) {
+        helpers.waitForPageLoaded();
+        //  if (ITestResult.FAILURE == result.getStatus()) {
+        try {
+            CaptureHelpers.CaptureScreenshot(driver, result.getName());
+        } catch (Exception e) {
+            System.out.println("Exception while taking screenshot " + e.getMessage());
         }
-   // }
+    }
+    @AfterClass
+    public void tearDownClass()throws Exception{
+        helpers.waitForPageLoaded();
+        CaptureHelpers.stopRecord();
+    }
 }
