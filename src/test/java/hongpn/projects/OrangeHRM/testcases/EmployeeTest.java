@@ -1,11 +1,11 @@
-package hongpn.testcases;
+package hongpn.projects.OrangeHRM.testcases;
 
+import hongpn.common.utilities.Log.Log;
 import hongpn.commons.BaseSetup;
 import hongpn.commons.ValidateHelper;
-import hongpn.pages.DashboardPage;
-import hongpn.pages.PIMPage;
-import hongpn.pages.SignInPage;
-import net.bytebuddy.build.Plugin;
+import hongpn.projects.OrangeHRM.pages.DashboardPage;
+import hongpn.projects.OrangeHRM.pages.PIMPage;
+import hongpn.projects.OrangeHRM.pages.SignInPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
@@ -23,6 +23,7 @@ public class EmployeeTest extends BaseSetup {
 //        driver = new ChromeDriver();
 //        driver.manage().window().maximize();
 //        driver.get("https://opensource-demo.orangehrmlive.com/");
+        Log.info("Starting SignInHRMPage");
         driver = super.getDriver();
         signInPage = new SignInPage(this.driver);
         dashboardPage= signInPage.SignIn("Admin", "admin123");
@@ -30,6 +31,7 @@ public class EmployeeTest extends BaseSetup {
     }
     @Test(priority = 1)
     public void SearchEmployee() throws InterruptedException {
+        Log.info("Starting SearchEmployee");
         pimPage= dashboardPage.openPimMenu();
         pimPage.ClickToJobTitle();
         pimPage.ClickToElementStatus();

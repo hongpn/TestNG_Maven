@@ -1,37 +1,39 @@
-package hongpn.commons;
+package hongpn.listeners;
 
 import hongpn.common.helpers.CaptureHelpers;
+import hongpn.common.utilities.Log.Log;
+import hongpn.commons.BaseSetup;
 import org.testng.ITestListener;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 public class TestListener implements ITestListener {
     @Override
     public void onFinish(ITestContext result) {
-        System.out.println("Kết thúc auto test");
+        Log.info("Finish auto test");
     }
     @Override
     public void onStart(ITestContext result) {
-        System.out.println("Bắt đầu chạy autotest");
+        Log.info("Starting autotest");
     }
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-
+        Log.info("This is test case having positive fail percentage "+result.getName());
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        System.out.println("Đây là test case bị fail: " + result.getName());
+       Log.error("Fail test case: " + result.getName());
         try {
-            CaptureHelpers.CaptureScreenshot(new BaseSetup().getDriver(), result.getName());
+            CaptureHelpers.CaptureScreenshot(BaseSetup.getDriver(), result.getName());
         } catch (Exception ex) {
-            System.out.println("Exception while taking photo " + ex.getMessage());
+            Log.error("Exception while taking photo " + ex.getMessage());
         }
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        System.out.println("Đây là test case bị bỏ qua: " + result.getName());
+       Log.info("Skipped test case: " + result.getName());
 
     }
 
@@ -42,7 +44,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        System.out.println("Đây là test case chạy thành công: " + result.getName());
-
+        //System.out.println("Đây là test case chạy thành công: " + result.getName());
+        Log.info("Successful test case: " + result.getName());
     }
 }

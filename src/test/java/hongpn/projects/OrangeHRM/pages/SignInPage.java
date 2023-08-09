@@ -1,4 +1,4 @@
-package hongpn.pages;
+package hongpn.projects.OrangeHRM.pages;
 import hongpn.commons.ValidateHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

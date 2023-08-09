@@ -8,7 +8,7 @@ public class PropertiesFile {
     private static FileOutputStream fileOut;
 
     //Lấy đường dẫn đến project hiện tại
-    static String projectPath = System.getProperty("user.dir") + "/";
+    public static String projectPath = System.getProperty("user.dir") + "/";
     //Tạo đường dẫn đến file configs.properties mặc định
     private static String propertiesFilePathRoot = "src/test/resources/configs.properties";
 

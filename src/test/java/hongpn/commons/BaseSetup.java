@@ -1,5 +1,6 @@
 package hongpn.commons;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -15,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseSetup {
 
-    private WebDriver driver;
-    public WebDriver getDriver() { return driver;}
+    private static WebDriver driver;
+    public static WebDriver getDriver() { return driver;}
     @BeforeClass(alwaysRun = true)
     @Parameters({"browserType", "appURL"})
     public void setDriver(String browserType,String appURL) {
@@ -28,7 +29,35 @@ public class BaseSetup {
             default -> initChromeDriver(appURL);
         }
     }
-
+    public WebDriver setupDriver(String browserType) {
+        switch (browserType.trim().toLowerCase()) {
+            case "chrome" -> driver = initChromeDriver();
+            case "firefox" -> driver = initFirefoxDriver();
+            default -> {
+                System.out.println("Browser: " + browserType + " is invalid, Launching Chrome as browser of choice...");
+                driver = initChromeDriver();
+            }
+        }
+        return driver;
+    }
+    private WebDriver initChromeDriver() {
+        System.out.println("Launching Chrome browser...");
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        return driver;
+    }
+    private WebDriver initFirefoxDriver() {
+        System.out.println("Launching Firefox browser...");
+        WebDriverManager.firefoxdriver().setup();
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        return driver;
+    }
     private  void initChromeDriver(String appURL) {
         System.out.println("Launching Chrome browser...");
         driver = new ChromeDriver();

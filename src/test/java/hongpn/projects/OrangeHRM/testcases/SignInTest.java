@@ -1,39 +1,49 @@
-package hongpn.testcases;
+package hongpn.projects.OrangeHRM.testcases;
 
-import hongpn.common.helpers.CaptureHelpers;
 import hongpn.common.helpers.ExcelHelpers;
 import hongpn.common.helpers.PropertiesFile;
-import hongpn.common.helpers.ValidatingUIHelpers;
 import hongpn.commons.BaseSetup;
 import hongpn.commons.ValidateHelper;
-import hongpn.pages.SignInPage;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import hongpn.projects.OrangeHRM.pages.SignInPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.io.FileHandler;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.File;
-import java.lang.reflect.Method;
 
-public class ManyTests extends BaseSetup {
+public class SignInTest extends BaseSetup {
     private WebDriver driver;
     private ValidateHelper validateHelper;
+
     private SignInPage signInPage;
     private ExcelHelpers excelHelpers;
-    private ValidatingUIHelpers helpers;
     @BeforeClass
-    public void setUpBrowser() throws Exception {
+    public void setUpBrowser()  {
         this.driver = getDriver();
         excelHelpers=new ExcelHelpers();
         PropertiesFile.setPropertiesFile();
-        helpers=new ValidatingUIHelpers(driver);
-        CaptureHelpers.startRecord("LoginHRM");
+//        PropertiesFile.getPropValue("browser");
+//        System.out.println(PropertiesFile.getPropValue("browser"));
+//        System.out.println(PropertiesFile.getPropValue("username"));
+//        System.out.println(PropertiesFile.getPropValue("password"));
     }
+    private By searchField=By.xpath("//textarea[@id='APjFqb']");
+    private By searchButton=By.xpath("(//input[@name='btnK'])[2]");
+
+    public void SearchOnGG() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.google.com.vn/");
+        validateHelper=new ValidateHelper(driver);
+        validateHelper.setText(searchField, "BBC");
+        validateHelper.click(searchButton);
+        Thread.sleep(5000);
+        driver.quit();
+    }
+
     @Test(priority = 0)
     public void SignInHRMPage() throws Exception {
 //        WebDriverManager.chromedriver().setup();
@@ -48,21 +58,10 @@ public class ManyTests extends BaseSetup {
         String password=excelHelpers.getCellData("password",1);
         System.out.println("Password: "+password);
         signInPage.SignIn(username, password);
-        Thread.sleep(2000);
+        excelHelpers.setCellData("Passed",1,2);
+        PropertiesFile.setPropValue("result","passed");
+        Thread.sleep(5000);
     }
-    @AfterMethod
-    public void CaptureScreen(ITestResult result) {
-        helpers.waitForPageLoaded();
-        //  if (ITestResult.FAILURE == result.getStatus()) {
-        try {
-            CaptureHelpers.CaptureScreenshot(driver, result.getName());
-        } catch (Exception e) {
-            System.out.println("Exception while taking screenshot " + e.getMessage());
-        }
-    }
-    @AfterClass
-    public void tearDownClass()throws Exception{
-        helpers.waitForPageLoaded();
-        CaptureHelpers.stopRecord();
-    }
+
+
 }

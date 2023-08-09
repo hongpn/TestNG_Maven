@@ -1,11 +1,12 @@
 package hongpn.common.helpers;
 
 
+import hongpn.common.utilities.Log.Log;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.io.FileHandler;
-import org.testng.Reporter;
+
 
 import java.awt.*;
 import java.io.File;
@@ -19,7 +20,7 @@ import org.monte.media.math.Rational;
 import org.monte.screenrecorder.ScreenRecorder;
 import static org.monte.media.AudioFormatKeys.*;
 import static org.monte.media.VideoFormatKeys.*;
-
+import org.testng.Reporter;
 import static hongpn.common.helpers.PropertiesFile.projectPath;
 
 public class CaptureHelpers extends ScreenRecorder {
@@ -44,10 +45,10 @@ public class CaptureHelpers extends ScreenRecorder {
             }
             // Chổ này đặt tên thì truyền biến "screenName" gán cho tên File chụp màn hình
             FileHandler.copy(source, new File(projectPath + PropertiesFile.getPropValue("exportCapturePath") + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png"));
-            System.out.println("Screenshot taken: " + screenName);
+            Log.info("Screenshot taken: " + screenName);
             Reporter.log("Screenshot taken current URL: " + driver.getCurrentUrl(), true);
         } catch (Exception e) {
-            System.out.println("Exception while taking screenshot: " + e.getMessage());
+            Log.error("Exception while taking screenshot: " + e.getMessage());
         }
     }
     //Record video

@@ -1,17 +1,12 @@
-package hongpn.pages;
+package hongpn.projects.OrangeHRM.pages;
 
 import hongpn.commons.ValidateHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 
-public class Menu {
+public class AdminPage {
     private WebDriver driver;
     private ValidateHelper helper;
-
-    private By headerPage;
-    private String expectedHeader;
-    private String url;
     // Element for Dashboard Page
     //menu
     private final By adminMenu = By.xpath("//ul[@class='oxd-main-menu']//span[normalize-space()='Admin']");
@@ -25,38 +20,14 @@ public class Menu {
     private final By directoryMenu = By.xpath("//ul[@class='oxd-main-menu']//span[normalize-space()='Directory']");
     private final By maintenanceMenu = By.xpath("//ul[@class='oxd-main-menu']//span[normalize-space()='Maintenance']");
     private final By claimMenu = By.xpath("//ul[@class='oxd-main-menu']//span[normalize-space()='Dashboard']");
-    private final By BuzzMenu = By.xpath("//ul[@class='oxd-main-menu']//span[normalize-space()='Buzz']");
-    public Menu(WebDriver driver) {
+    private final By BuzzMenu = By.xpath("//ul[@class='oxd-main-menu']//span[normalize-space()='Dashboard']");
+
+    //url Dashboard
+    private  final String urlDashboard="/dashboard";
+    //Header Page
+    private final By headerPage=By.xpath("//h6[normalize-space()='Dashboard']");
+    public AdminPage(WebDriver driver) {
         this.driver = driver;
         helper = new ValidateHelper(driver);
-    }
-    public  void setParameters(By headerPagePar, String urlPar,String expectedHeaderPar)
-    {
-        headerPage=headerPagePar;
-        url=urlPar;
-        expectedHeader=expectedHeaderPar;
-    }
-    public AdminPage openAdminMenu() {
-        helper.waitForJSLoaded();
-        Assert.assertTrue(helper.verifyUrl(url), "Wrong link " + expectedHeader);
-        Assert.assertTrue(helper.verifyTxtElement(headerPage, expectedHeader), "Wrong header " + expectedHeader);
-        helper.click(adminMenu);
-        return new AdminPage(driver);
-    }
-    public PIMPage openPimMenu()
-    {
-        helper.waitForJSLoaded();
-        Assert.assertTrue(helper.verifyUrl(url), "Wrong link " + expectedHeader);
-        Assert.assertTrue(helper.verifyTxtElement(headerPage, expectedHeader), "Wrong header " + expectedHeader);
-        helper.click(pimMenu);
-        return new PIMPage(driver);
-    }
-    public LeavePage openLeaveMenu()
-    {
-        helper.waitForJSLoaded();
-        Assert.assertTrue(helper.verifyUrl(url), "Wrong link " + expectedHeader);
-        Assert.assertTrue(helper.verifyTxtElement(headerPage, expectedHeader), "Wrong header " + expectedHeader);
-        helper.click(leaveMenu);
-        return new LeavePage(driver);
     }
 }

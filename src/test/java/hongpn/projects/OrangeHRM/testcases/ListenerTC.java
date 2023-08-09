@@ -1,24 +1,22 @@
-package hongpn.testcases;
+package hongpn.projects.OrangeHRM.testcases;
 
-import hongpn.commons.TestListener;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import hongpn.commons.BaseSetup;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
-@Listeners(TestListener.class)
+// when running by testlistenersuite xml, it should be framed
+//@Listeners(TestListener.class)
 public class ListenerTC {
-    WebDriver driver;
+    private WebDriver driver;
 
     @BeforeClass
     public void setupDriver() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        //WebDriverManager.chromedriver().setup();
+        //driver = new ChromeDriver();
+        driver=new BaseSetup().setupDriver("chrome");
     }
 
     @Test(priority = 1) //Success Test
