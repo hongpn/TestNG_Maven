@@ -9,6 +9,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.List;
 
@@ -50,7 +54,7 @@ public class ValidatingUIHelpers {
         eleWaited.clear();
         eleWaited.sendKeys(value);
     }
-    public void clickElement(By element,String value) throws InterruptedException{
+    public void clickElement(By element) throws InterruptedException{
         waitForPageLoaded();
         WebElement eleWaited=wait.until(ExpectedConditions.elementToBeClickable(element));
         eleWaited.click();
@@ -174,5 +178,41 @@ public class ValidatingUIHelpers {
     public void waitForPageLoaded() {
        waitForJQueryLoaded();
        waitForJSLoaded();
+    }
+
+    // Upload file
+    public void uploadFile(By uploadBtn, String filePath) throws InterruptedException {
+        wait.until(ExpectedConditions.elementToBeClickable(uploadBtn));
+        driver.findElement(uploadBtn).click();
+        Thread.sleep(1);
+
+        // Khởi tạo Robot class
+        Robot rb = null;
+        try {
+            rb = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+
+        // Copy File path vào Clipboard
+        StringSelection str = new StringSelection(filePath);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);
+
+        Thread.sleep(1000);
+
+        // Nhấn Control+V để dán
+        rb.keyPress(KeyEvent.VK_CONTROL);
+        rb.keyPress(KeyEvent.VK_V);
+
+        // Xác nhận Control V trên
+        rb.keyRelease(KeyEvent.VK_CONTROL);
+        rb.keyRelease(KeyEvent.VK_V);
+
+        Thread.sleep(1000);
+
+        // Nhấn Enter
+        rb.keyPress(KeyEvent.VK_ENTER);
+        rb.keyRelease(KeyEvent.VK_ENTER);
+        actions.contextClick().build().perform();
     }
 }
